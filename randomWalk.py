@@ -37,17 +37,17 @@ def user_customization_2D():
     '''
     sns.set_palette('husl')
 
-    n_string = input('Enter length of walk (< 501): ')
+    n_string = input('Enter length of walk (< 500,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
-            or ((int(n_string) > 500))):
-        n_string = input('Enter valid length of walk (< 501): ')
+            or ((int(n_string) > 500000))):
+        n_string = input('Enter valid length of walk (< 500,001): ')
 
     n = int(n_string)
 
-    walkers_string = input('Enter number of walkers (< 21): ')
+    walkers_string = input('Enter number of walkers (< 31): ')
     while((not walkers_string.isdigit()) or (int(walkers_string) < 1)
-            or ((int(walkers_string) > 20))):
-        walkers_string = input('Enter valid number of walkers (< 21): ')
+            or ((int(walkers_string) > 30))):
+        walkers_string = input('Enter valid number of walkers (< 31): ')
 
     walkers = int(walkers_string)
 
@@ -100,7 +100,9 @@ def make_arrays_2D(n, num_arrays):
     '''
     Generate num_arrays number of random walks each of length n (2D)
     '''
-    data = []
+    x_arrays = []
+    y_arrays = []
+
     for i in range(num_arrays):
         x = np.zeros(n)
         y = np.zeros(n)
@@ -120,16 +122,10 @@ def make_arrays_2D(n, num_arrays):
                 x[i] = x[i-1]
                 y[i] = y[i-1] - 1
 
-        trace = go.Scatter(
-            x = x,
-            y = y,
-            line=dict(
-                width=0.3
-            )
-        )
-        data.append(trace)
+        x_arrays.append(x)
+        y_arrays.append(y)
 
-    return data
+    return x_arrays, y_arrays
 
 def make_arrays_3D(n, num_arrays):
     '''
@@ -183,11 +179,20 @@ def make_arrays_3D(n, num_arrays):
 
 def plot_1D(y_arrays, num_walkers):
     '''
-    Plot each array in y_array on same plot (1D)
+    Plot each array in y_arrays on same plot (1D)
     '''
     x = range(len(y_arrays[0]))
     for i in range(num_walkers):
         plt.plot(x, y_arrays[i], alpha=0.5)
+    plt.axis('off')
+    plt.show()
+
+def plot_2D(x_arrays, y_arrays):
+    '''
+    Plot each array in x_arrays and y_arrays on same plot (2D)
+    '''
+    for i in range(len(x_arrays)):
+        plt.plot(x_arrays[i], y_arrays[i], alpha=0.7)
     plt.axis('off')
     plt.show()
 
@@ -220,8 +225,8 @@ if __name__ == '__main__':
         plot_1D(y_arrays, walkers)
     elif D == '2':
         n, walkers = user_customization_2D()
-        data = make_arrays_2D(n, walkers)
-        plot(data)
+        x_arrays, y_arrays = make_arrays_2D(n, walkers)
+        plot_2D(x_arrays, y_arrays)
     else:
         n, walkers = user_customization_3D()
         data = make_arrays_3D(n, walkers)
