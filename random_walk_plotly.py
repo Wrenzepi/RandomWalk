@@ -84,9 +84,11 @@ def make_arrays_1D(n, num_arrays):
     '''
     Generate num_arrays number of random walks each of length n (1D)
     '''
+    colors = get_color_array()
+
     data = []
 
-    for i in range(num_arrays):
+    for j in range(num_arrays):
         y = np.zeros(n)
 
         for i in range(1, n):
@@ -100,7 +102,8 @@ def make_arrays_1D(n, num_arrays):
             x = np.arange(n),
             y = y,
             line=dict(
-                width=0.3
+                width=0.3,
+                color=colors[j]
             )
         )
         data.append(trace)
@@ -144,7 +147,6 @@ def make_arrays_2D(n, num_arrays):
             )
         )
         data.append(trace)
-        print(j, colors[j])
 
     return data
 
@@ -152,8 +154,10 @@ def make_arrays_3D(n, num_arrays):
     '''
     Generate num_arrays number of random walks each of length n (3D)
     '''
+    colors = get_color_array()
+
     data = []
-    for i in range(num_arrays):
+    for j in range(num_arrays):
         x = np.zeros(n)
         y = np.zeros(n)
         z = np.zeros(n)
@@ -191,7 +195,8 @@ def make_arrays_3D(n, num_arrays):
             z = z,
             marker=dict(
                 size=2,
-                opacity=0.6
+                opacity=0.6,
+                color=colors[j]
             )
         )
         data.append(trace)
@@ -202,9 +207,7 @@ def plot(data, D):
     '''
     Plot each array in data on same plot (any dimension)
     '''
-    if D == 1:
-        print()
-    elif D == 2:
+    if D == 1 or D == 2:
         layout = go.Layout(
             title='Random Walk',
             margin=dict(
@@ -290,7 +293,7 @@ def get_color_array():
             'lime', 'magenta', 'maroon', 'midnightblue', 'mistyrose',
             'navy', 'olive', 'orange', 'peru', 'pink', 'plum', 'purple',
             'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon',
-            'sandybrown', 'seagreen', 'sienna', 'silver', 'slateblue',
+            'sandybrown', 'seagreen', 'sienna', 'slateblue',
             'springgreen', 'steelblue', 'tan', 'teal', 'thistle',
             'tomato', 'turquoise', 'violet', 'yellow']
 
