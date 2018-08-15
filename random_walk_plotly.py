@@ -7,7 +7,6 @@ random_walk_plotly.py
 import numpy as np
 import plotly
 import plotly.graph_objs as go
-import random
 
 
 def user_customization_1D():
@@ -96,6 +95,7 @@ def make_arrays_1D(n, num_arrays):
                 color=colors[j]
             )
         )
+        print(j, colors[j])
         data.append(trace)
 
     return data
@@ -268,26 +268,26 @@ def plot(data, D):
 
     fig = go.Figure(data=data, layout=layout)
 
-    plotly.offline.plot(fig)
+    plotly.offline.plot(fig, filename='Random Walk '+str(D)+'D.html')
 
 def get_color_array():
     '''
     Returns array of colors in random order
     '''
     color_array = ['aquamarine', 'black', 'blue', 'blueviolet', 'brown',
-            'burlywood', 'chocolate', 'coral', 'crimson', 'cyan',
+            'chocolate', 'coral', 'crimson', 'cyan',
             'deeppink', 'deepskyblue', 'dodgerblue', 'firebrick',
             'forestgreen', 'fuchsia', 'gainsboro', 'gold', 'goldenrod',
-            'gray', 'green', 'greenyellow', 'honeydew', 'indianred',
-            'indigo', 'khaki', 'lavender', 'lawngreen', 'lightblue',
-            'lime', 'magenta', 'maroon', 'midnightblue', 'mistyrose',
-            'navy', 'olive', 'orange', 'peru', 'pink', 'plum', 'purple',
-            'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon',
-            'sandybrown', 'seagreen', 'sienna', 'slateblue',
-            'springgreen', 'steelblue', 'tan', 'teal', 'thistle',
+            'gray', 'green', 'greenyellow', 'indianred',
+            'indigo', 'lawngreen', 'lime',
+            'magenta', 'maroon', 'midnightblue', 'mistyrose',
+            'olive', 'orange', 'peru', 'pink', 'plum', 'purple',
+            'red', 'rosybrown', 'royalblue', 'saddlebrown',
+            'seagreen', 'sienna', 'slateblue',
+            'springgreen', 'steelblue', 'tan', 'teal',
             'tomato', 'turquoise', 'violet', 'yellow']
 
-    random.shuffle(color_array)
+    np.random.shuffle(color_array)
     return color_array
 
 

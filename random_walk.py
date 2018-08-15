@@ -178,9 +178,10 @@ def plot_1D(y_arrays, num_walkers):
     '''
     Plot each array in y_arrays on same plot (1D)
     '''
+    colors = get_color_array()
     x = range(len(y_arrays[0]))
     for i in range(num_walkers):
-        plt.plot(x, y_arrays[i], alpha=0.5)
+        plt.plot(x, y_arrays[i], alpha=0.5, color=colors[i])
     plt.axis('off')
     plt.show()
 
@@ -188,8 +189,9 @@ def plot_2D(x_arrays, y_arrays):
     '''
     Plot each array in x_arrays and y_arrays on same plot (2D)
     '''
+    colors = get_color_array()
     for i in range(len(x_arrays)):
-        plt.plot(x_arrays[i], y_arrays[i], alpha=0.7)
+        plt.plot(x_arrays[i], y_arrays[i], alpha=0.7, color=colors[i])
     plt.axis('off')
     plt.show()
 
@@ -197,12 +199,33 @@ def plot_3D(x_arrays, y_arrays, z_arrays):
     '''
     Plot each array in x_arrays and y_arrays on same plot (2D)
     '''
+    colors = get_color_array()
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     for i in range(len(x_arrays)):
-        ax.plot(x_arrays[i], y_arrays[i], z_arrays[i], alpha=0.7)
+        ax.plot(x_arrays[i], y_arrays[i], z_arrays[i], alpha=0.7, color=colors[i])
     plt.axis('off')
     plt.show()
+
+def get_color_array():
+    '''
+    Returns array of colors in random order
+    '''
+    color_array = ['aquamarine', 'black', 'blue', 'blueviolet', 'brown',
+            'chocolate', 'coral', 'crimson', 'cyan',
+            'deeppink', 'deepskyblue', 'dodgerblue', 'firebrick',
+            'forestgreen', 'fuchsia', 'gainsboro', 'gold', 'goldenrod',
+            'gray', 'green', 'greenyellow', 'indianred',
+            'indigo', 'lawngreen', 'lime',
+            'magenta', 'maroon', 'midnightblue', 'mistyrose',
+            'olive', 'orange', 'peru', 'pink', 'plum', 'purple',
+            'red', 'rosybrown', 'royalblue', 'saddlebrown',
+            'seagreen', 'sienna', 'slateblue',
+            'springgreen', 'steelblue', 'tan', 'teal',
+            'tomato', 'turquoise', 'violet', 'yellow']
+
+    np.random.shuffle(color_array)
+    return color_array
 
 
 if __name__ == '__main__':
