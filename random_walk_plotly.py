@@ -4,12 +4,15 @@ Author: David Kohler
 random_walk_plotly.py
 '''
 
+import colorlover as cl
 import matplotlib.pyplot as plt
 import numpy as np
 import plotly
 import plotly.graph_objs as go
+import random
 import seaborn as sns
 
+from IPython.display import HTML
 
 def user_customization_1D():
     '''
@@ -108,8 +111,10 @@ def make_arrays_2D(n, num_arrays):
     '''
     Generate num_arrays number of random walks each of length n (2D)
     '''
+    colors = get_color_array()
+
     data = []
-    for i in range(num_arrays):
+    for j in range(num_arrays):
         x = np.zeros(n)
         y = np.zeros(n)
 
@@ -131,11 +136,15 @@ def make_arrays_2D(n, num_arrays):
         trace = go.Scatter(
             x = x,
             y = y,
+            marker=dict(
+                color=colors[j]
+            ),
             line=dict(
                 width=0.3
             )
         )
         data.append(trace)
+        print(j, colors[j])
 
     return data
 
@@ -189,21 +198,104 @@ def make_arrays_3D(n, num_arrays):
 
     return data
 
-def plot(data):
+def plot(data, D):
     '''
     Plot each array in data on same plot (any dimension)
     '''
-    layout = go.Layout(
-        title='Random Walk',
-        margin=dict(
-            l=0,
-            r=0,
-            b=25,
-            t=50
+    if D == 1:
+        print()
+    elif D == 2:
+        layout = go.Layout(
+            title='Random Walk',
+            margin=dict(
+                l=0,
+                r=0,
+                b=25,
+                t=50
+            ),
+            xaxis=dict(
+                title='',
+                autorange=True,
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                ticks='',
+                showticklabels=False
+            ),
+            yaxis=dict(
+                title='',
+                autorange=True,
+                showgrid=False,
+                zeroline=False,
+                showline=False,
+                ticks='',
+                showticklabels=False
+            )
         )
-    )
+    elif D == 3:
+        layout = go.Layout(
+            title='Random Walk',
+            margin=dict(
+                l=0,
+                r=0,
+                b=25,
+                t=50
+            ),
+            scene=dict(
+                xaxis=dict(
+                    title='',
+                    autorange=True,
+                    showgrid=False,
+                    zeroline=False,
+                    showline=False,
+                    ticks='',
+                    showticklabels=False
+                ),
+                yaxis=dict(
+                    title='',
+                    autorange=True,
+                    showgrid=False,
+                    zeroline=False,
+                    showline=False,
+                    ticks='',
+                    showticklabels=False
+                ),
+                zaxis=dict(
+                    title='',
+                    autorange=True,
+                    showgrid=False,
+                    zeroline=False,
+                    showline=False,
+                    ticks='',
+                    showticklabels=False
+                )
+            )
+        )
+
+
     fig = go.Figure(data=data, layout=layout)
+
     plotly.offline.plot(fig)
+
+def get_color_array():
+    '''
+    Returns array of colors in random order
+    '''
+    color_array = ['aquamarine', 'black', 'blue', 'blueviolet', 'brown',
+            'burlywood', 'chocolate', 'coral', 'crimson', 'cyan',
+            'deeppink', 'deepskyblue', 'dodgerblue', 'firebrick',
+            'forestgreen', 'fuchsia', 'gainsboro', 'gold', 'goldenrod',
+            'gray', 'green', 'greenyellow', 'honeydew', 'indianred',
+            'indigo', 'khaki', 'lavender', 'lawngreen', 'lightblue',
+            'lime', 'magenta', 'maroon', 'midnightblue', 'mistyrose',
+            'navy', 'olive', 'orange', 'peru', 'pink', 'plum', 'purple',
+            'red', 'rosybrown', 'royalblue', 'saddlebrown', 'salmon',
+            'sandybrown', 'seagreen', 'sienna', 'silver', 'slateblue',
+            'springgreen', 'steelblue', 'tan', 'teal', 'thistle',
+            'tomato', 'turquoise', 'violet', 'yellow']
+
+    random.shuffle(color_array)
+    return color_array
 
 
 if __name__ == '__main__':
@@ -215,12 +307,12 @@ if __name__ == '__main__':
     if D == '1':
         n, walkers = user_customization_1D()
         data = make_arrays_1D(n, walkers)
-        plot(data)
+        plot(data, 1)
     elif D == '2':
         n, walkers = user_customization_2D()
         data = make_arrays_2D(n, walkers)
-        plot(data)
+        plot(data, 2)
     else:
         n, walkers = user_customization_3D()
         data = make_arrays_3D(n, walkers)
-        plot(data)
+        plot(data, 3)
