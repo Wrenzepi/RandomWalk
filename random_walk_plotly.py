@@ -6,6 +6,8 @@ randomWalk.py
 
 import matplotlib.pyplot as plt
 import numpy as np
+import plotly
+import plotly.graph_objs as go
 import seaborn as sns
 
 
@@ -15,10 +17,10 @@ def user_customization_1D():
     '''
     sns.set_palette('husl')
 
-    n_string = input('Enter length of walk (< 101): ')
+    n_string = input('Enter length of walk (< 500,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
-            or ((int(n_string) > 100))):
-        n_string = input('Enter valid length of walk (< 101): ')
+            or ((int(n_string) > 500000))):
+        n_string = input('Enter valid length of walk (< 500,001): ')
 
     n = int(n_string)
 
@@ -37,10 +39,10 @@ def user_customization_2D():
     '''
     sns.set_palette('husl')
 
-    n_string = input('Enter length of walk (< 501): ')
+    n_string = input('Enter length of walk (< 250,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
-            or ((int(n_string) > 500))):
-        n_string = input('Enter valid length of walk (< 501): ')
+            or ((int(n_string) > 250000))):
+        n_string = input('Enter valid length of walk (< 250,001): ')
 
     n = int(n_string)
 
@@ -59,17 +61,17 @@ def user_customization_3D():
     '''
     sns.set_palette('husl')
 
-    n_string = input('Enter length of walk (< 501): ')
+    n_string = input('Enter length of walk (< 100,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
-            or ((int(n_string) > 500))):
-        n_string = input('Enter valid length of walk (< 501): ')
+            or ((int(n_string) > 100000))):
+        n_string = input('Enter valid length of walk (< 100,001): ')
 
     n = int(n_string)
 
-    walkers_string = input('Enter number of walkers (< 21): ')
+    walkers_string = input('Enter number of walkers (< 11): ')
     while((not walkers_string.isdigit()) or (int(walkers_string) < 1)
-            or ((int(walkers_string) > 20))):
-        walkers_string = input('Enter valid number of walkers (< 21): ')
+            or ((int(walkers_string) > 10))):
+        walkers_string = input('Enter valid number of walkers (< 11): ')
 
     walkers = int(walkers_string)
 
