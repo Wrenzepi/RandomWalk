@@ -5,6 +5,7 @@ random_walk.py
 '''
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import seaborn as sns
 
@@ -59,17 +60,17 @@ def user_customization_3D():
     '''
     sns.set_palette('husl')
 
-    n_string = input('Enter length of walk (< 501): ')
+    n_string = input('Enter length of walk (< 50,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
-            or ((int(n_string) > 500))):
-        n_string = input('Enter valid length of walk (< 501): ')
+            or ((int(n_string) > 50000))):
+        n_string = input('Enter valid length of walk (< 50,001): ')
 
     n = int(n_string)
 
-    walkers_string = input('Enter number of walkers (< 21): ')
+    walkers_string = input('Enter number of walkers (< 16): ')
     while((not walkers_string.isdigit()) or (int(walkers_string) < 1)
-            or ((int(walkers_string) > 20))):
-        walkers_string = input('Enter valid number of walkers (< 21): ')
+            or ((int(walkers_string) > 15))):
+        walkers_string = input('Enter valid number of walkers (< 16): ')
 
     walkers = int(walkers_string)
 
@@ -131,7 +132,10 @@ def make_arrays_3D(n, num_arrays):
     '''
     Generate num_arrays number of random walks each of length n (3D)
     '''
-    data = []
+    x_arrays = []
+    y_arrays = []
+    z_arrays = []
+
     for i in range(num_arrays):
         x = np.zeros(n)
         y = np.zeros(n)
@@ -164,18 +168,11 @@ def make_arrays_3D(n, num_arrays):
                 y[i] = y[i-1]
                 z[i] = z[i-1] - 1
 
-        trace = go.Scatter3d(
-            x = x,
-            y = y,
-            z = z,
-            marker=dict(
-                size=2,
-                opacity=0.6
-            )
-        )
-        data.append(trace)
+        x_arrays.append(x)
+        y_arrays.append(y)
+        z_arrays.append(z)
 
-    return data
+    return x_arrays, y_arrays, z_arrays
 
 def plot_1D(y_arrays, num_walkers):
     '''
@@ -196,21 +193,16 @@ def plot_2D(x_arrays, y_arrays):
     plt.axis('off')
     plt.show()
 
-def plot(data):
+def plot_3D(x_arrays, y_arrays, z_arrays):
     '''
-    Plot each array in data on same plot (any dimension)
+    Plot each array in x_arrays and y_arrays on same plot (2D)
     '''
-    layout = go.Layout(
-        title='Random Walk',
-        margin=dict(
-            l=0,
-            r=0,
-            b=25,
-            t=50
-        )
-    )
-    fig = go.Figure(data=data, layout=layout)
-    plotly.offline.plot(fig)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    for i in range(len(x_arrays)):
+        ax.plot(x_arrays[i], y_arrays[i], z_arrays[i], alpha=0.7)
+    plt.axis('off')
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -229,5 +221,5 @@ if __name__ == '__main__':
         plot_2D(x_arrays, y_arrays)
     else:
         n, walkers = user_customization_3D()
-        data = make_arrays_3D(n, walkers)
-        plot(data)
+        x_arrays, y_arrays, z_arrays = make_arrays_3D(n, walkers)
+        plot_3D(x_arrays, y_arrays, z_arrays)
