@@ -4,22 +4,16 @@ Author: David Kohler
 random_walk_plotly.py
 '''
 
-import colorlover as cl
-import matplotlib.pyplot as plt
 import numpy as np
 import plotly
 import plotly.graph_objs as go
 import random
-import seaborn as sns
 
-from IPython.display import HTML
 
 def user_customization_1D():
     '''
     Prompts user for customization options for 1D
     '''
-    sns.set_palette('husl')
-
     n_string = input('Enter length of walk (< 500,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
             or ((int(n_string) > 500000))):
@@ -40,8 +34,6 @@ def user_customization_2D():
     '''
     Prompts user for customization options for 2D
     '''
-    sns.set_palette('husl')
-
     n_string = input('Enter length of walk (< 250,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
             or ((int(n_string) > 250000))):
@@ -62,8 +54,6 @@ def user_customization_3D():
     '''
     Prompts user for customization options for 3D
     '''
-    sns.set_palette('husl')
-
     n_string = input('Enter length of walk (< 100,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
             or ((int(n_string) > 100000))):
@@ -205,7 +195,7 @@ def make_arrays_3D(n, num_arrays):
 
 def plot(data, D):
     '''
-    Plot each array in data on same plot (any dimension)
+    Plot each array in data on same plot (of dimension D)
     '''
     if D == 1 or D == 2:
         layout = go.Layout(
