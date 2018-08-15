@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''
 Author: David Kohler
-randomWalk.py
+random_walk_plotly.py
 '''
 
 import matplotlib.pyplot as plt

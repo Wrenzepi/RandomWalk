@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''
 Author: David Kohler
-randomWalk.py
+random_walk.py
 '''
 
 import matplotlib.pyplot as plt
@@ -15,17 +15,17 @@ def user_customization_1D():
     '''
     sns.set_palette('husl')
 
-    n_string = input('Enter length of walk (< 101): ')
+    n_string = input('Enter length of walk (< 100,001): ')
     while((not n_string.isdigit()) or (int(n_string) < 1)
-            or ((int(n_string) > 100))):
-        n_string = input('Enter valid length of walk (< 101): ')
+            or ((int(n_string) > 100000))):
+        n_string = input('Enter valid length of walk (< 100,001): ')
 
     n = int(n_string)
 
-    walkers_string = input('Enter number of walkers (< 21): ')
+    walkers_string = input('Enter number of walkers (< 41): ')
     while((not walkers_string.isdigit()) or (int(walkers_string) < 1)
-            or ((int(walkers_string) > 20))):
-        walkers_string = input('Enter valid number of walkers (< 21): ')
+            or ((int(walkers_string) > 40))):
+        walkers_string = input('Enter valid number of walkers (< 41): ')
 
     walkers = int(walkers_string)
 
@@ -79,7 +79,7 @@ def make_arrays_1D(n, num_arrays):
     '''
     Generate num_arrays number of random walks each of length n (1D)
     '''
-    data = []
+    y_arrays = []
 
     for i in range(num_arrays):
         y = np.zeros(n)
@@ -91,16 +91,10 @@ def make_arrays_1D(n, num_arrays):
             elif num == 2:
                 y[i] = y[i-1] - 1
 
-        trace = go.Scatter(
-            x = np.arange(n),
-            y = y,
-            line=dict(
-                width=0.3
-            )
-        )
-        data.append(trace)
 
-    return data
+        y_arrays.append(y)
+
+    return y_arrays
 
 def make_arrays_2D(n, num_arrays):
     '''
@@ -187,6 +181,16 @@ def make_arrays_3D(n, num_arrays):
 
     return data
 
+def plot_1D(y_arrays, num_walkers):
+    '''
+    Plot each array in y_array on same plot (1D)
+    '''
+    x = range(len(y_arrays[0]))
+    for i in range(num_walkers):
+        plt.plot(x, y_arrays[i], alpha=0.5)
+    plt.axis('off')
+    plt.show()
+
 def plot(data):
     '''
     Plot each array in data on same plot (any dimension)
@@ -212,8 +216,8 @@ if __name__ == '__main__':
         D = input('+>')
     if D == '1':
         n, walkers = user_customization_1D()
-        data = make_arrays_1D(n, walkers)
-        plot(data)
+        y_arrays = make_arrays_1D(n, walkers)
+        plot_1D(y_arrays, walkers)
     elif D == '2':
         n, walkers = user_customization_2D()
         data = make_arrays_2D(n, walkers)
