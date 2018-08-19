@@ -34,7 +34,7 @@ Depending on whether you want to use matplotlib (first file) or plotly (second f
 
 Below is an example of 2D random walk of 1000 steps. The left from `random_walk.py` and the right from `random_walk_plotly.py`
 
-![2D Random Walk](plotly2D1k2.png)
+![2D Random Walk](ExampleWalks.png)
 
 ## Authors
 
