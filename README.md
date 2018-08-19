@@ -13,6 +13,7 @@ visuals.
 1. Copy the repository 
 2. Make sure you have Python version 3.6 or later
 3. Run:
+
 `pip install scipy`
 
 `pip install seaborn`
